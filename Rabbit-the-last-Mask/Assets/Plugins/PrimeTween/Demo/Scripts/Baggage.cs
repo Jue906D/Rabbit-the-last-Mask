@@ -19,6 +19,7 @@ namespace PrimeTweenDemo {
             if (!sequence.isAlive) {
                 const float jumpDuration = 0.3f;
                 sequence = Sequence.Create()
+                    //序列
                     .Chain(Tween.LocalPositionZ(animationAnchor, 0.2f, jumpDuration))
                     .Chain(Tween.LocalEulerAngles(animationAnchor, Vector3.zero, new Vector3(0, 360, 0), 0.9f, Ease.InOutBack))
                     .Chain(Tween.LocalPositionZ(animationAnchor, 0, jumpDuration));

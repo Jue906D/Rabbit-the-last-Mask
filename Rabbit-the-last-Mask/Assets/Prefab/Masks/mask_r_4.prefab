@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2028138680, guid: cf1d2e6d7a5a1c34da7fed2ec3d64c13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7ed59c723407a7349a7b8fd5619cf3e6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90,3 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RectTransform: {fileID: 5039877918204424242}
   maskName: mask_r_4
+  clip: {fileID: 8300000, guid: 98070706b914ade4f9db94f1a5811320, type: 3}

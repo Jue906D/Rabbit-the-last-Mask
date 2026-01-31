@@ -4949,7 +4949,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5145,6 +5145,7 @@ MonoBehaviour:
   bgm_sampleRate: 0
   bgm_delay: 0
   bgm_interval: 0
+  hitClip: {fileID: 8300000, guid: 135f83330033d8845a4c95016fcc373b, type: 3}
 --- !u!1 &1744888418
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,12 @@ namespace Script.Ground
         
         
         public List<float> rowWidths = new List<float> { 500, 600, 800, 1000, 1380 };
-        
+
+        public List<Vector2> actorScale = new List<Vector2>
+        {
+            new Vector2(104, 207), new Vector2(104, 207), new Vector2(105, 207), new Vector2(150, 296),
+            new Vector2(200, 385),
+        };
         public void SwitchRows()
         {
             if (nearLeave!=null && nearLeave.seqInPart > 4 && nearLeave.seqInPart <= 7)
@@ -104,6 +109,10 @@ namespace Script.Ground
                     .OnComplete(row, target => {
                         target.rectTransform.anchoredPosition = transforms[0].anchoredPosition;
                         target.rectTransform.sizeDelta = new Vector2(rowWidths[0], row.rectTransform.sizeDelta.y);
+                        foreach (var a in row.actors)
+                        {
+                            a.GetComponent<RectTransform>().sizeDelta = actorScale[0];
+                        }
                         GameCenter.Instance.RefreshRow(row);
                     });
             }
@@ -111,6 +120,16 @@ namespace Script.Ground
             {
                 row.leave = false;
                 const float jumpDuration = 0.3f;
+                foreach (var a in row.actors)
+                {
+                    var rt = a.GetComponent<RectTransform>();
+                    Sequence.Create()
+                        .Group(Tween.UISizeDelta(
+                            rt,
+                            actorScale[row.sortOrder],jumpDuration,Ease.InOutSine
+                        ))
+                   ;
+                }
                 Sequence.Create()
                     .Group(Tween.UISizeDelta(
                         row.rectTransform,
@@ -129,6 +148,8 @@ namespace Script.Ground
                             {
                                 foreach (var actor in row.actors)
                                 {
+                                    if(actor.slot == null || actor.slot.mask == null || actor.slot.hasMask == false)
+                                            continue;
                                     AudioManager.Instance.PlaySfx(actor.slot.mask.clip);
                                 }
                             }

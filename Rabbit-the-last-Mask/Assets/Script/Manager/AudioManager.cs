@@ -32,6 +32,8 @@ namespace Script.Manager
         public float bgm_delay;
         public int bgm_interval;
 
+        public AudioClip hitClip;
+
         AudioSource GetAvailableChannel()
         {
             for (int i = 0; i < sfxSources.Length; i++)

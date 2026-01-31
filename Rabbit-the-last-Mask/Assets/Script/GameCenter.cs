@@ -203,10 +203,12 @@ namespace Script
                     //RIGHT
                     CurScoreBorad.rightCount++;
                     Debug.Log("Right");
+                    AudioManager.Instance.PlaySfx(mask.clip);
                 }
                 else
                 {
                     CurScoreBorad.wrongCount++;
+                    AudioManager.Instance.PlaySfx(mask.clip);
                     Debug.Log("Wrong");
                 }
             }
@@ -214,6 +216,7 @@ namespace Script
             {
                 //hit
                 CurScoreBorad.hitCount ++;
+                AudioManager.Instance.PlaySfx(AudioManager.Instance.hitClip);
                 Debug.Log("Hit");
             }
             CountScore(CurScoreBorad,false);

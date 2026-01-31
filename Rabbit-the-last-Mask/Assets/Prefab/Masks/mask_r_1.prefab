@@ -90,4 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RectTransform: {fileID: 1423217280772144764}
   maskName: mask_r_1
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 82772607587b6e544a438cf667f63397, type: 3}

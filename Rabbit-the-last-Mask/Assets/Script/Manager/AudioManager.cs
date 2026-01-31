@@ -70,6 +70,7 @@ namespace Script.Manager
             bgm_sampleRate = bgmSource.clip.frequency;
             bgm_delay = Mathf.RoundToInt(230f / 1000f *bgm_sampleRate);
             bgm_interval = Mathf.RoundToInt(500f / 1000f *bgm_sampleRate);
+            Debug.Log($"{bgm_sampleRate} {bgm_delay} {bgm_interval}");
         }
 
 

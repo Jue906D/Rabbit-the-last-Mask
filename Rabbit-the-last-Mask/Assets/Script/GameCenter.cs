@@ -37,7 +37,7 @@ namespace Script
         
         public  ScoreBorad CurScoreBorad ;
         public TextMeshProUGUI tmp;
-
+        public float timeStart;
         public void CountScore(ScoreBorad scoreBorad, bool upgradeStage)
         {
             scoreBorad.totalScore = rightScore*scoreBorad.rightCount + wrongScore*scoreBorad.wrongCount
@@ -59,6 +59,7 @@ namespace Script
         void Start()
         {
                 AudioManager.Instance.PlayBGM("main");
+                timeStart = Time.fixedTime;
                 //AudioManager.Instance.PlaySfx("sheep");
                 
                 currentPart = 0;
@@ -71,8 +72,8 @@ namespace Script
             
             int currentSample =  AudioManager.Instance.bgmSource.timeSamples;
             var effectiveSample = currentSample - AudioManager.Instance.bgm_delay;
-            
-            timePassed = effectiveSample / AudioManager.Instance.bgm_sampleRate * 1000f;
+
+            timePassed =( Time.fixedTime - timeStart - 0.23f)*1000f;
             var baseNum = AudioManager.Instance.bgm_interval * 4;
             loopProgress = effectiveSample % baseNum/ baseNum;
             foreach (var a in actorAnimators)

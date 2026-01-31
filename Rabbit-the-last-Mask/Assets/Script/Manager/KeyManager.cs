@@ -30,7 +30,6 @@ namespace Script.Manager
             foreach (var sl in slots)
             {
                 var rand = Random.Range(0,masks.Count);
-                Destroy(sl.mask.gameObject);
                 sl.GetMask(masks[rand]);
                 sl.mask.RectTransform.sizeDelta = RowController.Instance.maskScale[4];
             }
@@ -44,7 +43,7 @@ namespace Script.Manager
             
             if (Input.GetKeyDown(KeyCode.Space) && RowController.Instance.nearLeave != null)
             {
-                GameCenter.Instance.ChangeMask(CurChooseMask);
+                GameCenter.Instance.ChangeMask(slots[CurChooseMaskIndex].mask);
             }
             
             if (Input.GetKeyDown(KeyCode.Q))

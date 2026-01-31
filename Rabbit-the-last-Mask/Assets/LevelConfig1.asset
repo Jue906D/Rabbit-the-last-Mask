@@ -18,7 +18,7 @@ MonoBehaviour:
     beginAt: 10000
     NpcPrefab: {fileID: 8483930635156557717, guid: 53a93fc1d70cf2a4495143bc2e6fa286, type: 3}
     SlotPrefab: {fileID: 8483930635156557717, guid: 9cff2b78ee37bb848a0b674ae7890f85, type: 3}
-    slotNum: 01000000
+    slotNum: 010000000100000001000000
     mask: {fileID: 1477402975384100047, guid: cc1a1cf0748d2e94ab1055adf0ad2785, type: 3}
   - switchInterval: 500
     beginAt: 20000

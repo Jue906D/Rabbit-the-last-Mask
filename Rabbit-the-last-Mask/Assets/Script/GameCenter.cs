@@ -62,6 +62,7 @@ namespace Script
         {
             actorAnimators = new HashSet<Animator>();
             timePassed = 0;
+            m_mask = levelConfig.Parts[0].mask.gameObject;
         }
 
 
@@ -74,6 +75,20 @@ namespace Script
                 currentPart = 0;
                 realCurrentPart = -1;
         }
+
+        public void Reset()
+        {
+            AudioManager.Instance.PlayBGM("main");
+            timeStart = Time.fixedTime;
+            timePassed = 0;
+            currentPart = 0;
+            realCurrentPart = -1;
+            lastMoveTime = 0;
+            seqInPart = 0;
+            CurScoreBorad = new ScoreBorad();
+            timeOverAt = 0;
+            m_mask = null;
+        }
         
         void FixedUpdate()
         {
@@ -82,7 +97,7 @@ namespace Script
             int currentSample =  AudioManager.Instance.bgmSource.timeSamples;
             var effectiveSample = currentSample - AudioManager.Instance.bgm_delay;
 
-            timePassed =( Time.fixedTime - timeStart + timeOffset - 0.23f)*1000f;
+            timePassed =( Time.fixedTime - timeStart  - 0.23f)*1000f+ timeOffset;
             timeText.text =$" {(timePassed- timeOffset+- 0.23f)/1000f:F2}";
             var baseNum = AudioManager.Instance.bgm_interval * 4;
             loopProgress = effectiveSample % baseNum/ baseNum;
@@ -98,15 +113,14 @@ namespace Script
                     {
                         if (realCurrentPart < levelConfig.Parts.Count-1)
                             realCurrentPart++;
-                        interval = levelConfig.Parts[currentPart].switchInterval;
-                        m_mask = levelConfig.Parts[currentPart].mask.gameObject;
                     }
                 }
-                else
+
+                if (currentPart == levelConfig.Parts.Count - 1 )
                 {
-                    if(timeOverAt <= 1f)
-                        timeOverAt = Time.fixedTime;
-                    if (timeOverAt + 10000f < Time.fixedTime)
+                    if (timeOverAt <= 1f)
+                        timeOverAt = Time.fixedTime * 1000f;
+                    if (timeOverAt + 10000f < Time.fixedTime*1000f)
                     {
                         timeOverAt += 10000f;
                         m_mask =
@@ -147,6 +161,8 @@ namespace Script
             if (seqInPart == 1 &&realCurrentPart!=-1)
             {
                 currentPart = realCurrentPart;
+                interval = levelConfig.Parts[currentPart].switchInterval;
+                m_mask = levelConfig.Parts[currentPart].mask.gameObject;
             }
             seqInPart =seqInPart % 7 +1;
             for (int i = 0; i < row.points.Count; i++)
@@ -167,7 +183,7 @@ namespace Script
                     if (tmp == null)
                     {
                         tmp = Instantiate(levelConfig.Parts[currentPart].NpcPrefab, row.points[i]);
-                        tmp.GetComponent<Actor>().slot.GetMask(m_mask.gameObject);
+                        tmp.GetComponent<Actor>().slot.GetMask(m_mask);
                         tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 200);
                         row.rightMaskName = m_mask.GetComponent<Mask>().maskName; 
                     }
@@ -176,7 +192,7 @@ namespace Script
                 else
                 {
                     tmp = Instantiate(levelConfig.Parts[currentPart].NpcPrefab, row.points[i]);
-                    tmp.GetComponent<Actor>().slot.GetMask(levelConfig.Parts[currentPart].mask.gameObject);
+                    tmp.GetComponent<Actor>().slot.GetMask(m_mask);
                     tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 200);
                 }
                 tmp.GetComponent<RectTransform>().anchoredPosition = row.actors[i].gameObject.GetComponent<RectTransform>().anchoredPosition;

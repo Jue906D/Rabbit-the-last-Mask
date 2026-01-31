@@ -54,6 +54,7 @@ namespace Script
         private void Awake()
         {
             actorAnimators = new HashSet<Animator>();
+            timePassed = 0;
         }
 
 
@@ -202,14 +203,14 @@ namespace Script
                 {
                     //RIGHT
                     CurScoreBorad.rightCount++;
-                    Debug.Log("Right");
+                    Debug.Log($"Right play{mask.clip.name}");
                     AudioManager.Instance.PlaySfx(mask.clip);
                 }
                 else
                 {
                     CurScoreBorad.wrongCount++;
                     AudioManager.Instance.PlaySfx(mask.clip);
-                    Debug.Log("Wrong");
+                    Debug.Log($"Wrong play{mask.clip.name}");
                 }
             }
             else

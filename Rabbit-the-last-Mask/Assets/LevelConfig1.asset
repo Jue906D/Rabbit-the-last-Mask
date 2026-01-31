@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a1f7a0a20b466985b8d60d381c888f, type: 3}
+  m_Name: LevelConfig1
+  m_EditorClassIdentifier: 
+  BgmName: main
+  Parts:
+  - switchInterval: 1000
+    beginAt: 1000
+    NpcPrefab: {fileID: 8483930635156557717, guid: 53a93fc1d70cf2a4495143bc2e6fa286, type: 3}
+    SlotPrefab: {fileID: 8483930635156557717, guid: 9cff2b78ee37bb848a0b674ae7890f85, type: 3}
+    slotNum: 010000000100000001000000
+    mask: {fileID: 0}
+  - switchInterval: 800
+    beginAt: 10000
+    NpcPrefab: {fileID: 8483930635156557717, guid: 53a93fc1d70cf2a4495143bc2e6fa286, type: 3}
+    SlotPrefab: {fileID: 8483930635156557717, guid: 9cff2b78ee37bb848a0b674ae7890f85, type: 3}
+    slotNum: 010000000200000001000000
+    mask: {fileID: 0}
+  maskDict:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - mask_r_1
+    - mask_r_2
+    - m3
+    - m4
+    - m5
+    _keys:
+    - mask_r_1
+    - mask_r_2
+    - m3
+    - m4
+    - m5
+    _values:
+    - {fileID: 2046773247207251174, guid: cc06da03c2bb137408da34a6a14dedbb, type: 3}
+    - {fileID: 1477402975384100047, guid: 3f4a367a8632c074fb0f1b2b7ceb59c2, type: 3}
+    - {fileID: 1477402975384100047, guid: bb1667f6ec1cb7246a4765400df5589b, type: 3}
+    - {fileID: 1477402975384100047, guid: 2cd843ae03045ae4d98546d2cac972f2, type: 3}
+    - {fileID: 1477402975384100047, guid: a3dfb403af5dab24c9643e4b49a0cddf, type: 3}

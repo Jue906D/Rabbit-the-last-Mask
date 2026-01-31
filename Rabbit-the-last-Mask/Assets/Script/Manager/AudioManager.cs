@@ -26,7 +26,12 @@ namespace Script.Manager
         public class ClipDict : SerializableDictionaryBase<string, AudioClip>{};
         [Serializable]
         public class SourceDict : SerializableDictionaryBase<string, AudioSource>{};
-        
+
+        public int bgm_sampleRate;
+
+        public float bgm_delay;
+        public int bgm_interval;
+
         AudioSource GetAvailableChannel()
         {
             for (int i = 0; i < sfxSources.Length; i++)
@@ -37,14 +42,14 @@ namespace Script.Manager
             lastUsedChannel = (lastUsedChannel + 1) % sfxSources.Length;
             return sfxSources[lastUsedChannel];
         }
-        public void PlaySfx(AudioClip clip, Vector3 position = default)
+        public void PlaySfx(string  clipName, Vector3 position = default)
         {
             AudioSource channel = GetAvailableChannel();
         
             // 设置参数
             channel.transform.position = position;
             channel.volume = 1f;
-            channel.clip = clip;
+            channel.clip = sfxDict[clipName];
             channel.Play();
         }
 
@@ -53,6 +58,10 @@ namespace Script.Manager
             bgmSource.clip = bgmDict[clipName];
             bgmSource.volume = 1f;
             bgmSource.Play();
+            
+            bgm_sampleRate = bgmSource.clip.frequency;
+            bgm_delay = Mathf.RoundToInt(230f / 1000f *bgm_sampleRate);
+            bgm_interval = Mathf.RoundToInt(500f / 1000f *bgm_sampleRate);
         }
 
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Script.Tools;
 using UnityEngine;
@@ -6,11 +7,22 @@ namespace Script.Ground
 {
     public class RowBase : MonoBehaviour, IPoolable
     {
+        public RectTransform rectTransform;
         [Header("次序 ")]
         public int sortOrder;
         [Header("点位")]
-        public List<Transform> points;
+        public List<RectTransform> points;
+        [Header("角色")]
+        public List<Actor> actors;
 
+        public int seqInPart;
+
+        public List<Slot> slots;
+        
+        public void Awake()
+        {
+            rectTransform = GetComponent<RectTransform>();
+        }
 
         public void OnSpawn()
         {

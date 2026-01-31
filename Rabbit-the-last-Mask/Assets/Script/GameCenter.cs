@@ -194,16 +194,19 @@ namespace Script
                 {
                     //RIGHT
                     CurScoreBorad.rightCount++;
+                    Debug.Log("Right");
                 }
                 else
                 {
                     CurScoreBorad.wrongCount++;
+                    Debug.Log("Wrong");
                 }
             }
             else
             {
                 //hit
                 CurScoreBorad.hitCount ++;
+                Debug.Log("Hit");
             }
             CountScore(CurScoreBorad,false);
         }

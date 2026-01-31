@@ -21,20 +21,21 @@ namespace Script.Ground
         public int delay = 0;
         public void SwitchRows()
         {
-            if (nearLeave.seqInPart > 4 && nearLeave.seqInPart <= 7)
+            if (nearLeave!=null && nearLeave.seqInPart > 4 && nearLeave.seqInPart <= 7)
             {
-                bool miss = false;
+                int miss = 0;
                 foreach (var sl in nearLeave.slots)
                 {
                     if (sl.hasMask == false)
                     {
-                        miss = true;
+                        miss ++;
                     }
                 }
 
-                if (miss)
+                if (miss>0)
                 {
-                    GameCenter.Instance.CurScoreBorad.missCount++;
+                    Debug.Log($"MIss:{miss}");
+                    GameCenter.Instance.CurScoreBorad.missCount+=miss;
                     GameCenter.Instance.CountScore(GameCenter.Instance.CurScoreBorad,false);
                 }
             }

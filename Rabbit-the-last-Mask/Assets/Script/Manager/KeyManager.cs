@@ -42,13 +42,11 @@ namespace Script.Manager
             
             if (Input.GetKeyDown(KeyCode.Space) && RowController.Instance.nearLeave != null)
             {
-                Debug.Log("Space pressed");
                 GameCenter.Instance.ChangeMask(CurChooseMask);
             }
             
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                Debug.Log("Mask Refresh");
                 foreach (var sl in slots)
                 {
                     var rand = Random.Range(0,masks.Count);

@@ -29,6 +29,11 @@ namespace Script.Ground
             new Vector2(104, 207), new Vector2(104, 207), new Vector2(105, 207), new Vector2(150, 296),
             new Vector2(200, 385),
         };
+        public List<Vector2> maskScale = new List<Vector2>
+        {
+            new Vector2(104, 207), new Vector2(104, 207), new Vector2(105, 207), new Vector2(150, 296),
+            new Vector2(200, 385),
+        };
         public void SwitchRows()
         {
             if (nearLeave!=null && nearLeave.seqInPart > 4 && nearLeave.seqInPart <= 7)

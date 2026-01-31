@@ -38,6 +38,7 @@ namespace Script
         public  ScoreBorad CurScoreBorad ;
         public TextMeshProUGUI tmp;
         public float timeStart;
+        public float timeOffset;
         public void CountScore(ScoreBorad scoreBorad, bool upgradeStage)
         {
             scoreBorad.totalScore = rightScore*scoreBorad.rightCount + wrongScore*scoreBorad.wrongCount
@@ -73,7 +74,7 @@ namespace Script
             int currentSample =  AudioManager.Instance.bgmSource.timeSamples;
             var effectiveSample = currentSample - AudioManager.Instance.bgm_delay;
 
-            timePassed =( Time.fixedTime - timeStart - 0.23f)*1000f;
+            timePassed =( Time.fixedTime - timeStart + timeOffset - 0.23f)*1000f;
             var baseNum = AudioManager.Instance.bgm_interval * 4;
             loopProgress = effectiveSample % baseNum/ baseNum;
             foreach (var a in actorAnimators)
@@ -86,7 +87,6 @@ namespace Script
                 {
                     if (realCurrentPart == -1 || levelConfig.Parts[realCurrentPart].beginAt < timePassed)
                     {
-                        
                         if (realCurrentPart < levelConfig.Parts.Count-1)
                             realCurrentPart++;
                         interval = levelConfig.Parts[currentPart].switchInterval;

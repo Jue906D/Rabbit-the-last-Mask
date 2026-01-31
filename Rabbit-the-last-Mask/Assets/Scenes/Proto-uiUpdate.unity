@@ -1885,7 +1885,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.098
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5098,7 +5098,7 @@ MonoBehaviour:
     _keys:
     - main
     _values:
-    - {fileID: 8300000, guid: 16c8386177352af4fa878bd9c53d6be4, type: 3}
+    - {fileID: 8300000, guid: fcf693629da12374b9a6f6bfa5c50ee0, type: 3}
   bgmSource: {fileID: 1509840700}
   bgmFadeTime: 1
   sfxDict:
@@ -5688,7 +5688,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.098
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5820,7 +5820,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.098
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7013,7 +7013,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.098
   m_Pitch: 1
   Loop: 0
   Mute: 0

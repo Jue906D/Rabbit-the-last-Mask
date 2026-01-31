@@ -92,12 +92,17 @@ namespace Script
                     }
                 }
             
-                //move
-                if (lastMoveTime + interval < timePassed)
-                {
-                    RowController.Instance.SwitchRows();
-                    lastMoveTime = timePassed;
-                }
+
+        }
+
+        private void FixedUpdate()
+        {
+            //move
+            if (lastMoveTime + interval < timePassed)
+            {
+                RowController.Instance.SwitchRows();
+                lastMoveTime = timePassed;
+            }
         }
 
         public void RefreshRow(RowBase row)

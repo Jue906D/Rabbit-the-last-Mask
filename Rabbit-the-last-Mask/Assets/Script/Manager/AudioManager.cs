@@ -50,7 +50,6 @@ namespace Script.Manager
         
             // 设置参数
             channel.transform.position = position;
-            channel.volume = 1f;
             channel.clip = sfxDict[clipName];
             channel.Play();
         }
@@ -60,14 +59,12 @@ namespace Script.Manager
         
             // 设置参数
             channel.transform.position = position;
-            channel.volume = 1f;
             channel.clip =clip;
             channel.Play();
         }
         public void PlayBGM(string clipName)
         {
             bgmSource.clip = bgmDict[clipName];
-            bgmSource.volume = 1f;
             bgmSource.Play();
             
             bgm_sampleRate = bgmSource.clip.frequency;
@@ -85,7 +82,6 @@ namespace Script.Manager
             {
 
                 sfxSources[i].playOnAwake = false;
-                sfxSources[i].volume = 1f;
             }
         }
     }

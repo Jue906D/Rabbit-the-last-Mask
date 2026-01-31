@@ -50,6 +50,7 @@ namespace Script.Manager
                 foreach (var sl in slots)
                 {
                     var rand = Random.Range(0,masks.Count);
+                    Destroy(sl.mask.gameObject);
                     sl.GetMask(masks[rand]);
                 }
             }

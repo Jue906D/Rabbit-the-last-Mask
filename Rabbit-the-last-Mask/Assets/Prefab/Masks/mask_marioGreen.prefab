@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7202836478923806897}
   - component: {fileID: 1477402975384100047}
   m_Layer: 5
-  m_Name: mask_r_5
+  m_Name: mask_marioGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ee69403ad8078344a71bc0075f1d03c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a92d4f7c41132504391b5ece922dc78b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -89,5 +89,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RectTransform: {fileID: 5039877918204424242}
-  maskName: mask_r_5
+  maskName: mask_marioGreen
   clip: {fileID: 8300000, guid: 5744a48a4daf53442957b1277fc9da15, type: 3}

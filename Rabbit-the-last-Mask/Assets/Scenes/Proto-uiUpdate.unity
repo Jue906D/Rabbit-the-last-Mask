@@ -3988,6 +3988,8 @@ MonoBehaviour:
     hitCount: 0
     missCount: 0
   tmp: {fileID: 1742696938}
+  timeStart: 0
+  timeOffset: 0
   maks: []
   loopProgress: 0
   normalAnimator: {fileID: 10843664}
@@ -6181,6 +6183,12 @@ MonoBehaviour:
   - 1000
   - 1380
   actorScale:
+  - {x: 104, y: 207}
+  - {x: 104, y: 207}
+  - {x: 105, y: 207}
+  - {x: 150, y: 296}
+  - {x: 200, y: 385}
+  maskScale:
   - {x: 104, y: 207}
   - {x: 104, y: 207}
   - {x: 105, y: 207}

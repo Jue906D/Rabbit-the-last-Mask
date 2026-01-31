@@ -596,6 +596,10 @@ MonoBehaviour:
   - {fileID: 7713766919942157244}
   - {fileID: 784612455469087826}
   seqInPart: 0
+  slots: []
+  delay: 0
+  leave: 0
+  rightMaskName: 
 --- !u!1 &4794906661179310906
 GameObject:
   m_ObjectHideFlags: 0

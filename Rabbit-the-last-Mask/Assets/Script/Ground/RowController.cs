@@ -144,7 +144,7 @@ namespace Script.Ground
                         onValueChange: (t, v) => t.anchoredPosition = v
                     )).OnComplete(row, target =>
                         {
-                            if (row == nearLeave)
+                            if (row == nearLeave && row.sortOrder<=4)
                             {
                                 foreach (var actor in row.actors)
                                 {

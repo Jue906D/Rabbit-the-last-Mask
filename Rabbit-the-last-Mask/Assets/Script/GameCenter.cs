@@ -145,7 +145,8 @@ namespace Script
                     {
                         tmp = Instantiate(levelConfig.Parts[currentPart].NpcPrefab, row.points[i]);
                         tmp.GetComponent<Actor>().slot.GetMask(levelConfig.Parts[currentPart].mask.gameObject);
-                        row.rightMaskName = levelConfig.Parts[currentPart].mask.maskName;
+                        tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 200);
+                        row.rightMaskName = levelConfig.Parts[currentPart].mask.maskName; 
                     }
 
                 }
@@ -153,6 +154,7 @@ namespace Script
                 {
                     tmp = Instantiate(levelConfig.Parts[currentPart].NpcPrefab, row.points[i]);
                     tmp.GetComponent<Actor>().slot.GetMask(levelConfig.Parts[currentPart].mask.gameObject);
+                    tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 200);
                 }
                 tmp.GetComponent<RectTransform>().anchoredPosition = row.actors[i].gameObject.GetComponent<RectTransform>().anchoredPosition;
                 

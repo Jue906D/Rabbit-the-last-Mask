@@ -52,7 +52,16 @@ namespace Script.Manager
             channel.clip = sfxDict[clipName];
             channel.Play();
         }
-
+        public void PlaySfx(AudioClip clip, Vector3 position = default)
+        {
+            AudioSource channel = GetAvailableChannel();
+        
+            // 设置参数
+            channel.transform.position = position;
+            channel.volume = 1f;
+            channel.clip =clip;
+            channel.Play();
+        }
         public void PlayBGM(string clipName)
         {
             bgmSource.clip = bgmDict[clipName];

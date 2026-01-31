@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PrimeTween;
+using Script.Manager;
 using Script.Tools;
 using UnityEngine;
 
@@ -19,6 +20,10 @@ namespace Script.Ground
         public RectTransform last;
         public bool setLeave;
         public int delay = 0;
+        
+        
+        public List<float> rowWidths = new List<float> { 500, 600, 800, 1000, 1380 };
+        
         public void SwitchRows()
         {
             if (nearLeave!=null && nearLeave.seqInPart > 4 && nearLeave.seqInPart <= 7)
@@ -74,6 +79,15 @@ namespace Script.Ground
                 nearLeave = row;
                 setLeave = true;
             }
+
+            for (int i =0 ; i< row.transform.childCount ; i++)
+            {
+                if (nextTransform == transforms[i])
+                {
+                    row.sortOrder = i;
+                }
+            }
+            
             if (leave)
             {
                 row.leave = true;
@@ -89,6 +103,7 @@ namespace Script.Ground
                     ))
                     .OnComplete(row, target => {
                         target.rectTransform.anchoredPosition = transforms[0].anchoredPosition;
+                        target.rectTransform.sizeDelta = new Vector2(rowWidths[0], row.rectTransform.sizeDelta.y);
                         GameCenter.Instance.RefreshRow(row);
                     });
             }
@@ -97,14 +112,29 @@ namespace Script.Ground
                 row.leave = false;
                 const float jumpDuration = 0.3f;
                 Sequence.Create()
-                    .Chain(Tween.Custom(
+                    .Group(Tween.UISizeDelta(
+                        row.rectTransform,
+                        new Vector2(rowWidths[row.sortOrder], row.rectTransform.sizeDelta.y),jumpDuration,Ease.InOutSine
+                        ))
+                    .Group(Tween.Custom(
                         row.rectTransform,
                         row.rectTransform.anchoredPosition,
                         nextTransform.anchoredPosition,
                         duration: jumpDuration,
                         ease: Ease.InOutSine,
                         onValueChange: (t, v) => t.anchoredPosition = v
-                    ));
+                    )).OnComplete(row, target =>
+                        {
+                            if (row == nearLeave)
+                            {
+                                foreach (var actor in row.actors)
+                                {
+                                    AudioManager.Instance.PlaySfx(actor.slot.mask.clip);
+                                }
+                            }
+
+                        }
+                    );
             }
 
         }

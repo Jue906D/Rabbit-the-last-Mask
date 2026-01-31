@@ -8,5 +8,6 @@ namespace Script
     {
         public RectTransform RectTransform;
         public string maskName;
+        public AudioClip clip;
     }
 }

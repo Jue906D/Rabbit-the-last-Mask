@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Script.Ground;
 using Script.Manager;
 using Script.SObj;
@@ -8,6 +9,7 @@ using Script.Tools;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Script
 {
@@ -37,8 +39,13 @@ namespace Script
         
         public  ScoreBorad CurScoreBorad ;
         public TextMeshProUGUI tmp;
+        public TextMeshProUGUI timeText;
         public float timeStart;
         public float timeOffset;
+        public float timeOverAt;
+
+        public GameObject m_mask;
+
         public void CountScore(ScoreBorad scoreBorad, bool upgradeStage)
         {
             scoreBorad.totalScore = rightScore*scoreBorad.rightCount + wrongScore*scoreBorad.wrongCount
@@ -63,7 +70,7 @@ namespace Script
                 AudioManager.Instance.PlayBGM("main");
                 timeStart = Time.fixedTime;
                 //AudioManager.Instance.PlaySfx("sheep");
-                
+                timePassed = 0;
                 currentPart = 0;
                 realCurrentPart = -1;
         }
@@ -76,6 +83,7 @@ namespace Script
             var effectiveSample = currentSample - AudioManager.Instance.bgm_delay;
 
             timePassed =( Time.fixedTime - timeStart + timeOffset - 0.23f)*1000f;
+            timeText.text =$" {(timePassed- timeOffset+- 0.23f)/1000f:F2}";
             var baseNum = AudioManager.Instance.bgm_interval * 4;
             loopProgress = effectiveSample % baseNum/ baseNum;
             foreach (var a in actorAnimators)
@@ -91,8 +99,22 @@ namespace Script
                         if (realCurrentPart < levelConfig.Parts.Count-1)
                             realCurrentPart++;
                         interval = levelConfig.Parts[currentPart].switchInterval;
+                        m_mask = levelConfig.Parts[currentPart].mask.gameObject;
                     }
                 }
+                else
+                {
+                    if(timeOverAt <= 1f)
+                        timeOverAt = Time.fixedTime;
+                    if (timeOverAt + 10000f < Time.fixedTime)
+                    {
+                        timeOverAt += 10000f;
+                        m_mask =
+                            KeyManager.Instance.masks[Random.Range(0, KeyManager.Instance.masks.Count())];
+                    }
+                }
+                
+                
                 if (lastMoveTime + interval <= timePassed)
                 {
                     RowController.Instance.SwitchRows();
@@ -145,9 +167,9 @@ namespace Script
                     if (tmp == null)
                     {
                         tmp = Instantiate(levelConfig.Parts[currentPart].NpcPrefab, row.points[i]);
-                        tmp.GetComponent<Actor>().slot.GetMask(levelConfig.Parts[currentPart].mask.gameObject);
+                        tmp.GetComponent<Actor>().slot.GetMask(m_mask.gameObject);
                         tmp.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 200);
-                        row.rightMaskName = levelConfig.Parts[currentPart].mask.maskName; 
+                        row.rightMaskName = m_mask.GetComponent<Mask>().maskName; 
                     }
 
                 }
@@ -192,16 +214,18 @@ namespace Script
                 else
                 {
                     masked = true;
-                    sl.GetMask(mask);
+                    sl.GetMask(mask.gameObject);
+                    sl.mask.RectTransform.sizeDelta = RowController.Instance.maskScale[curRow.sortOrder];
                     break;
                 }
             }
 
             if (masked )
             {
-                if (mask.maskName == levelConfig.Parts[currentPart].mask.maskName)
+                if (mask.maskName == m_mask.GetComponent<Mask>().maskName)
                 {
                     //RIGHT
+                    
                     CurScoreBorad.rightCount++;
                     Debug.Log($"Right play{mask.clip.name}");
                     AudioManager.Instance.PlaySfx(mask.clip);

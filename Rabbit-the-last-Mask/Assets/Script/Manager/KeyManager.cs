@@ -30,7 +30,9 @@ namespace Script.Manager
             foreach (var sl in slots)
             {
                 var rand = Random.Range(0,masks.Count);
+                Destroy(sl.mask.gameObject);
                 sl.GetMask(masks[rand]);
+                sl.mask.RectTransform.sizeDelta = RowController.Instance.maskScale[4];
             }
 
             CurChooseMaskIndex = 0;
@@ -52,6 +54,7 @@ namespace Script.Manager
                     var rand = Random.Range(0,masks.Count);
                     Destroy(sl.mask.gameObject);
                     sl.GetMask(masks[rand]);
+                    sl.mask.RectTransform.sizeDelta = RowController.Instance.maskScale[4];
                 }
             }
             

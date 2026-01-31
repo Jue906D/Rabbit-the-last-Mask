@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using PrimeTween;
 using Script.Manager;
 using Script.Tools;
@@ -31,8 +32,8 @@ namespace Script.Ground
         };
         public List<Vector2> maskScale = new List<Vector2>
         {
-            new Vector2(104, 207), new Vector2(104, 207), new Vector2(105, 207), new Vector2(150, 296),
-            new Vector2(200, 385),
+            new Vector2(156, 133), new Vector2(156, 133), new Vector2(156, 133), new Vector2(202,190),
+            new Vector2(220,200),
         };
         public void SwitchRows()
         {
@@ -80,6 +81,8 @@ namespace Script.Ground
             {
                 nearLeave = null;
             }
+
+
         }
 
         public void MoveRow(RowBase row,RectTransform nextTransform,bool leave = false)
@@ -95,9 +98,9 @@ namespace Script.Ground
                 if (nextTransform == transforms[i])
                 {
                     row.sortOrder = i;
+                    row.rectTransform.SetSiblingIndex(row.sortOrder);
                 }
             }
-            
             if (leave)
             {
                 row.leave = true;
@@ -112,13 +115,18 @@ namespace Script.Ground
                         onValueChange: (t, v) => t.anchoredPosition = v
                     ))
                     .OnComplete(row, target => {
-                        target.rectTransform.anchoredPosition = transforms[0].anchoredPosition;
-                        target.rectTransform.sizeDelta = new Vector2(rowWidths[0], row.rectTransform.sizeDelta.y);
+                        GameCenter.Instance.RefreshRow(row);
                         foreach (var a in row.actors)
                         {
                             a.GetComponent<RectTransform>().sizeDelta = actorScale[0];
+                            if (a.slot.mask)
+                            {
+                                a.slot.mask.GetComponent<RectTransform>().sizeDelta = maskScale[0];
+                            }
                         }
-                        GameCenter.Instance.RefreshRow(row);
+                        target.rectTransform.anchoredPosition = transforms[0].anchoredPosition;
+                        target.rectTransform.sizeDelta = new Vector2(rowWidths[0], row.rectTransform.sizeDelta.y);
+                        
                     });
             }
             else
@@ -132,8 +140,16 @@ namespace Script.Ground
                         .Group(Tween.UISizeDelta(
                             rt,
                             actorScale[row.sortOrder],jumpDuration,Ease.InOutSine
-                        ))
-                   ;
+                        ));
+                    if (a.slot && a.slot.mask)
+                    {
+                        var mrt = a.slot.mask.GetComponent<RectTransform>();
+                        Sequence.Create()
+                            .Group(Tween.UISizeDelta(
+                                mrt,
+                                maskScale[row.sortOrder],jumpDuration,Ease.InOutSine
+                            ));
+                    }
                 }
                 Sequence.Create()
                     .Group(Tween.UISizeDelta(
@@ -171,7 +187,14 @@ namespace Script.Ground
             tmp.transform.SetParent(rowParent);
             tmp.GetComponent<RectTransform>().anchoredPosition = transforms[0].anchoredPosition;
             GameCenter.Instance.RefreshRow(tmp.GetComponent<RowBase>());
-            
+            foreach (var a in tmp.GetComponent<RowBase>().actors)
+            {
+                a.GetComponent<RectTransform>().sizeDelta = actorScale[0];
+                if (a.slot.mask)
+                {
+                    a.slot.mask.GetComponent<RectTransform>().sizeDelta = maskScale[0];
+                }
+            }
             return tmp.GetComponent<RowBase>();
         }
         

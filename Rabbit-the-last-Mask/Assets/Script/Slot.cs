@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Script.Ground;
+using UnityEngine;
 
 namespace Script
 {
@@ -24,6 +25,8 @@ namespace Script
             this.mask = Instantiate(maskPrefab, transform).GetComponent<Mask>();
             this.mask.RectTransform.SetParent(gameObject.transform);
             this.mask.RectTransform.anchoredPosition = Vector2.zero;
+           // if(mask.RectTransform.parent.transform.parent.GetComponent<RowBase>()!=null)
+           //     mask.RectTransform.sizeDelta = RowController.Instance.maskScale[mask.RectTransform.parent.transform.parent.GetComponent<RowBase>().sortOrder];
         }
     }
 }

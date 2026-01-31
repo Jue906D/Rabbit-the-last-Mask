@@ -92,7 +92,7 @@ namespace Script
                         interval = levelConfig.Parts[currentPart].switchInterval;
                     }
                 }
-                if (lastMoveTime + interval < timePassed)
+                if (lastMoveTime + interval <= timePassed)
                 {
                     RowController.Instance.SwitchRows();
                     lastMoveTime = timePassed;

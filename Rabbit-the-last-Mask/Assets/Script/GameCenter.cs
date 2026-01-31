@@ -65,7 +65,7 @@ namespace Script
                 realCurrentPart = -1;
         }
         
-        void Update()
+        void FixedUpdate()
         {
             if (! AudioManager.Instance.bgmSource.isPlaying ||  AudioManager.Instance.bgmSource.clip == null) return;
             
@@ -91,18 +91,12 @@ namespace Script
                         interval = levelConfig.Parts[currentPart].switchInterval;
                     }
                 }
-            
+                if (lastMoveTime + interval < timePassed)
+                {
+                    RowController.Instance.SwitchRows();
+                    lastMoveTime = timePassed;
+                }
 
-        }
-
-        private void FixedUpdate()
-        {
-            //move
-            if (lastMoveTime + interval < timePassed)
-            {
-                RowController.Instance.SwitchRows();
-                lastMoveTime = timePassed;
-            }
         }
 
         public void RefreshRow(RowBase row)

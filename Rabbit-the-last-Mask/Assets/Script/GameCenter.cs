@@ -18,10 +18,11 @@ namespace Script
 
         public float timePassed;
         public int currentPart;
+        public int realCurrentPart;
 
         public int interval = 300;
         public float lastMoveTime;
-        public int seqInPart = 0;
+        public int seqInPart = 1;
         
         public HashSet<Animator> actorAnimators;
         
@@ -60,7 +61,8 @@ namespace Script
                 AudioManager.Instance.PlayBGM("main");
                 //AudioManager.Instance.PlaySfx("sheep");
                 
-                currentPart = -1;
+                currentPart = 0;
+                realCurrentPart = -1;
         }
         
         void Update()
@@ -79,13 +81,13 @@ namespace Script
                 a.Play(stateInfo.fullPathHash, 0, loopProgress);
             }
             
-                if (currentPart < levelConfig.Parts.Count)
+                if (realCurrentPart < levelConfig.Parts.Count)
                 {
-                    if (currentPart == -1 || levelConfig.Parts[currentPart].beginAt < timePassed)
+                    if (realCurrentPart == -1 || levelConfig.Parts[realCurrentPart].beginAt < timePassed)
                     {
                         
-                        if (currentPart < levelConfig.Parts.Count-1)
-                            currentPart++;
+                        if (realCurrentPart < levelConfig.Parts.Count-1)
+                            realCurrentPart++;
                         interval = levelConfig.Parts[currentPart].switchInterval;
                     }
                 }
@@ -118,6 +120,10 @@ namespace Script
             if (seqInPart == 7)
             {
                 RowController.Instance.delay++;
+            }
+            if (seqInPart == 1 &&realCurrentPart!=-1)
+            {
+                currentPart = realCurrentPart;
             }
             seqInPart =seqInPart % 7 +1;
             for (int i = 0; i < row.points.Count; i++)

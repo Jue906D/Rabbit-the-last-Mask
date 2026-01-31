@@ -34,7 +34,7 @@ namespace Script.Ground
 
                 if (miss>0)
                 {
-                    Debug.Log($"MIss:{miss}");
+                    Debug.Log($"Miss:{miss}");
                     GameCenter.Instance.CurScoreBorad.missCount+=miss;
                     GameCenter.Instance.CountScore(GameCenter.Instance.CurScoreBorad,false);
                 }

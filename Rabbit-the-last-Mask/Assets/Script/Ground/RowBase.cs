@@ -18,6 +18,11 @@ namespace Script.Ground
         public int seqInPart;
 
         public List<Slot> slots;
+
+        public int delay = 0;
+        public bool leave = false;
+
+        public string  rightMaskName;
         
         public void Awake()
         {

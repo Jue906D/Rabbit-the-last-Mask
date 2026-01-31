@@ -10,7 +10,7 @@ namespace Script
 
         public void GetMask(Mask mask)
         {
-            Debug.Log($"GetMask {mask.name}");
+            //Debug.Log($"GetMask {mask.name}");
             hasMask = true;
             this.mask = Instantiate(mask.RectTransform.gameObject, transform).GetComponent<Mask>();
             this.mask.RectTransform.SetParent(gameObject.transform);
@@ -20,7 +20,7 @@ namespace Script
         
         public void GetMask(GameObject maskPrefab)
         {
-            Debug.Log($"GetMask {maskPrefab.name}");
+            //Debug.Log($"GetMask {maskPrefab.name}");
             hasMask = true;
             this.mask = Instantiate(maskPrefab, transform).GetComponent<Mask>();
             this.mask.RectTransform.SetParent(gameObject.transform);

@@ -7,5 +7,6 @@ namespace Script
     public class Mask:MonoBehaviour
     {
         public RectTransform RectTransform;
+        public string maskName;
     }
 }

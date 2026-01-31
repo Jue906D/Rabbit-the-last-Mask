@@ -15,17 +15,29 @@ MonoBehaviour:
   BgmName: main
   Parts:
   - switchInterval: 1000
-    beginAt: 1000
+    beginAt: 0
     NpcPrefab: {fileID: 8483930635156557717, guid: 53a93fc1d70cf2a4495143bc2e6fa286, type: 3}
     SlotPrefab: {fileID: 8483930635156557717, guid: 9cff2b78ee37bb848a0b674ae7890f85, type: 3}
     slotNum: 010000000100000001000000
-    mask: {fileID: 0}
+    mask: {fileID: 1477402975384100047, guid: 3f4a367a8632c074fb0f1b2b7ceb59c2, type: 3}
   - switchInterval: 800
     beginAt: 10000
     NpcPrefab: {fileID: 8483930635156557717, guid: 53a93fc1d70cf2a4495143bc2e6fa286, type: 3}
     SlotPrefab: {fileID: 8483930635156557717, guid: 9cff2b78ee37bb848a0b674ae7890f85, type: 3}
     slotNum: 010000000200000001000000
-    mask: {fileID: 0}
+    mask: {fileID: 2046773247207251174, guid: cc06da03c2bb137408da34a6a14dedbb, type: 3}
+  - switchInterval: 800
+    beginAt: 15000
+    NpcPrefab: {fileID: 8483930635156557717, guid: 53a93fc1d70cf2a4495143bc2e6fa286, type: 3}
+    SlotPrefab: {fileID: 8483930635156557717, guid: 9cff2b78ee37bb848a0b674ae7890f85, type: 3}
+    slotNum: 010000000200000001000000
+    mask: {fileID: 1477402975384100047, guid: bb1667f6ec1cb7246a4765400df5589b, type: 3}
+  - switchInterval: 800
+    beginAt: 20000
+    NpcPrefab: {fileID: 8483930635156557717, guid: 53a93fc1d70cf2a4495143bc2e6fa286, type: 3}
+    SlotPrefab: {fileID: 8483930635156557717, guid: 9cff2b78ee37bb848a0b674ae7890f85, type: 3}
+    slotNum: 010000000200000001000000
+    mask: {fileID: 1477402975384100047, guid: 2cd843ae03045ae4d98546d2cac972f2, type: 3}
   maskDict:
     reorderableList:
       canAdd: 1

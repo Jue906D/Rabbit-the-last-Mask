@@ -15,8 +15,31 @@ namespace Script.Ground
         public RectTransform rowParent;
         
         public GameObject rowPrefab;
+        public RowBase nearLeave;
+        public RectTransform last;
+        public bool setLeave;
+        public int delay = 0;
         public void SwitchRows()
         {
+            if (nearLeave.seqInPart > 4 && nearLeave.seqInPart <= 7)
+            {
+                bool miss = false;
+                foreach (var sl in nearLeave.slots)
+                {
+                    if (sl.hasMask == false)
+                    {
+                        miss = true;
+                    }
+                }
+
+                if (miss)
+                {
+                    GameCenter.Instance.CurScoreBorad.missCount++;
+                    GameCenter.Instance.CountScore(GameCenter.Instance.CurScoreBorad,false);
+                }
+            }
+            
+            setLeave = false;
             if (rows.Count < totalRowNum+1)
             {
                 var newRow = GenrateNewRow();
@@ -33,16 +56,26 @@ namespace Script.Ground
                 rows.Insert(0, lastItem);
                 for (int i = 0; i < rows.Count; i++)
                 {
-                    MoveRow(rows[i], transforms[i],i==0);
+                    
+                    MoveRow(rows[i], transforms[(i-rows[i].delay+5*10000)%5],(i-rows[i].delay+5*10000)%5==0 && !rows[i].leave);
                 }
             }
-            
+            if (setLeave ==false)
+            {
+                nearLeave = null;
+            }
         }
 
         public void MoveRow(RowBase row,RectTransform nextTransform,bool leave = false)
         {
+            if (nextTransform == last)
+            {
+                nearLeave = row;
+                setLeave = true;
+            }
             if (leave)
             {
+                row.leave = true;
                 const float jumpDuration = 0.3f;
                 Sequence.Create()
                     .Chain(Tween.Custom(
@@ -60,6 +93,7 @@ namespace Script.Ground
             }
             else
             {
+                row.leave = false;
                 const float jumpDuration = 0.3f;
                 Sequence.Create()
                     .Chain(Tween.Custom(
@@ -80,6 +114,7 @@ namespace Script.Ground
             tmp.transform.SetParent(rowParent);
             tmp.GetComponent<RectTransform>().anchoredPosition = transforms[0].anchoredPosition;
             GameCenter.Instance.RefreshRow(tmp.GetComponent<RowBase>());
+            
             return tmp.GetComponent<RowBase>();
         }
         

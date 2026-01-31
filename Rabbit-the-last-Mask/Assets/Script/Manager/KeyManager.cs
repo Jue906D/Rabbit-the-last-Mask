@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Script.Ground;
 using Script.SObj;
 using Script.Tools;
 using UnityEngine;
@@ -39,7 +40,7 @@ namespace Script.Manager
         void Update()
         {
             
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && RowController.Instance.nearLeave != null)
             {
                 Debug.Log("Space pressed");
                 GameCenter.Instance.ChangeMask(CurChooseMask);

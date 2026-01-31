@@ -5,6 +5,7 @@ using Script.Ground;
 using Script.Manager;
 using Script.SObj;
 using Script.Tools;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -34,16 +35,18 @@ namespace Script
         
         
         public  ScoreBorad CurScoreBorad ;
-
+        public TextMeshProUGUI tmp;
 
         public void CountScore(ScoreBorad scoreBorad, bool upgradeStage)
         {
             scoreBorad.totalScore = rightScore*scoreBorad.rightCount + wrongScore*scoreBorad.wrongCount
                 +hitScore*scoreBorad.hitCount + missScore*scoreBorad.missCount;
+            scoreBorad.totalScore = scoreBorad.totalScore >= 0 ? scoreBorad.totalScore : 0;
             if (upgradeStage)
             {
                 scoreBorad.stageScore = 0;
             }
+            tmp.text = scoreBorad.totalScore.ToString();
         }
 
         private void Awake()
@@ -57,7 +60,7 @@ namespace Script
                 AudioManager.Instance.PlayBGM("main");
                 //AudioManager.Instance.PlaySfx("sheep");
                 
-                currentPart = 0;
+                currentPart = -1;
         }
         
         void Update()
@@ -78,11 +81,12 @@ namespace Script
             
                 if (currentPart < levelConfig.Parts.Count)
                 {
-                    if (levelConfig.Parts[currentPart].beginAt < timePassed)
+                    if (currentPart == -1 || levelConfig.Parts[currentPart].beginAt < timePassed)
                     {
-                        interval = levelConfig.Parts[currentPart].switchInterval;
+                        
                         if (currentPart < levelConfig.Parts.Count-1)
                             currentPart++;
+                        interval = levelConfig.Parts[currentPart].switchInterval;
                     }
                 }
             
@@ -100,6 +104,7 @@ namespace Script
             GameObject tmp;
             row.seqInPart = seqInPart;
             row.slots = null;
+            row.delay = RowController.Instance.delay;
             if (seqInPart > 4)
             { 
                 randoms = RandomUtil.GetUniqueRandoms(0, 5, levelConfig.Parts[currentPart].slotNum[seqInPart-5]);
@@ -108,6 +113,11 @@ namespace Script
             else
             {
                 randoms = null;
+            }
+
+            if (seqInPart == 7)
+            {
+                RowController.Instance.delay++;
             }
             seqInPart =seqInPart % 7 +1;
             for (int i = 0; i < row.points.Count; i++)
@@ -124,12 +134,19 @@ namespace Script
                             break;
                         }
                     }
+
                     if (tmp == null)
+                    {
                         tmp = Instantiate(levelConfig.Parts[currentPart].NpcPrefab, row.points[i]);
+                        tmp.GetComponent<Actor>().slot.GetMask(levelConfig.Parts[currentPart].mask.gameObject);
+                        row.rightMaskName = levelConfig.Parts[currentPart].mask.maskName;
+                    }
+
                 }
                 else
                 {
                     tmp = Instantiate(levelConfig.Parts[currentPart].NpcPrefab, row.points[i]);
+                    tmp.GetComponent<Actor>().slot.GetMask(levelConfig.Parts[currentPart].mask.gameObject);
                 }
                 tmp.GetComponent<RectTransform>().anchoredPosition = row.actors[i].gameObject.GetComponent<RectTransform>().anchoredPosition;
                 
@@ -149,7 +166,7 @@ namespace Script
         public void ChangeMask(Mask mask)
         {
             bool masked;
-            var curRow = RowController.Instance.rows[^1];
+            var curRow = RowController.Instance.nearLeave;
             if (curRow.seqInPart <= 4)
             {
                 Debug.Log("Cannot add mask");
@@ -173,7 +190,7 @@ namespace Script
 
             if (masked )
             {
-                if (mask == levelConfig.Parts[currentPart].mask)
+                if (mask.maskName == levelConfig.Parts[currentPart].mask.maskName)
                 {
                     //RIGHT
                     CurScoreBorad.rightCount++;
